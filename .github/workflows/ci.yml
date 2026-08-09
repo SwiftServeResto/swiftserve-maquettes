@@ -15,6 +15,8 @@ jobs:
       - run: npm test
       - run: npm run brand:validate
       - run: npm run docs:matrix && npx prettier --write docs/FIGURE_TO_IMPLEMENTATION_MATRIX.md && git diff --exit-code docs/FIGURE_TO_IMPLEMENTATION_MATRIX.md
+      - run: npm run build
+      - run: npm run routes:validate
       - run: npx playwright install --with-deps chromium
       - run: npm run test:e2e
       - name: Upload interaction reports and workflow previews
@@ -26,5 +28,4 @@ jobs:
             playwright-report
             test-results
           if-no-files-found: ignore
-      - run: npm run build
       - run: '! grep -RInE "(BEGIN (RSA|OPENSSH) PRIVATE KEY|Authorization: Bearer [A-Za-z0-9])" --exclude-dir=node_modules --exclude-dir=.git .'

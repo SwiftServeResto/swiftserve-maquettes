@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc -b && vite build",
+    "build": "vue-tsc -b && vite build && node --experimental-strip-types scripts/generate-static-route-entrypoints.mjs",
     "type-check": "vue-tsc -b",
     "lint": "eslint .",
     "format": "prettier --check .",
@@ -14,7 +14,9 @@
     "test:e2e": "playwright test",
     "brand:generate": "node scripts/brand/generate.mjs",
     "brand:validate": "node scripts/brand/validate.mjs",
-    "docs:matrix": "node --experimental-strip-types scripts/generate-matrix.mjs"
+    "docs:matrix": "node --experimental-strip-types scripts/generate-matrix.mjs",
+    "routes:validate": "node --experimental-strip-types scripts/validate-static-routes.mjs",
+    "preview:static": "node scripts/static-server.mjs"
   },
   "dependencies": {
     "@vitejs/plugin-vue": "^6.0.8",

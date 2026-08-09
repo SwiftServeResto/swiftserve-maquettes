@@ -8,3 +8,4 @@
 - Responsive desktop, compact, phone and tablet layouts.
 - Deterministic interaction, unit and Playwright foundations.
 - GitHub Pages validation and deployment workflows.
+- Pages routing hotfix centralizes 17 public routes and generates static entry points for every known clean URL. Phase 8B remained untouched.
