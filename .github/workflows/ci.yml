@@ -1,0 +1,30 @@
+name: CI
+on: [push, pull_request]
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm }
+      - run: npm ci
+      - run: npm audit --audit-level=high
+      - run: npm run format
+      - run: npm run lint
+      - run: npm run type-check
+      - run: npm test
+      - run: npm run brand:validate
+      - run: npm run docs:matrix && npx prettier --write docs/FIGURE_TO_IMPLEMENTATION_MATRIX.md && git diff --exit-code docs/FIGURE_TO_IMPLEMENTATION_MATRIX.md
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:e2e
+      - name: Upload interaction reports and workflow previews
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-${{ github.sha }}
+          path: |
+            playwright-report
+            test-results
+          if-no-files-found: ignore
+      - run: npm run build
+      - run: '! grep -RInE "(BEGIN (RSA|OPENSSH) PRIVATE KEY|Authorization: Bearer [A-Za-z0-9])" --exclude-dir=node_modules --exclude-dir=.git .'

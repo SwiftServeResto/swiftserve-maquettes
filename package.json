@@ -1,0 +1,41 @@
+{
+  "name": "swiftserve-maquettes",
+  "private": true,
+  "version": "0.8.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc -b && vite build",
+    "type-check": "vue-tsc -b",
+    "lint": "eslint .",
+    "format": "prettier --check .",
+    "format:write": "prettier --write .",
+    "test": "vitest run",
+    "test:e2e": "playwright test",
+    "brand:generate": "node scripts/brand/generate.mjs",
+    "brand:validate": "node scripts/brand/validate.mjs",
+    "docs:matrix": "node --experimental-strip-types scripts/generate-matrix.mjs"
+  },
+  "dependencies": {
+    "@vitejs/plugin-vue": "^6.0.8",
+    "pinia": "^3.0.3",
+    "vite": "^8.2.1",
+    "vue": "^3.5.41",
+    "vue-router": "^5.0.3"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@playwright/test": "^1.58.2",
+    "@testing-library/vue": "^8.1.0",
+    "@types/node": "^24.10.0",
+    "eslint": "^10.0.3",
+    "eslint-plugin-vue": "^10.10.0",
+    "jsdom": "^28.0.0",
+    "prettier": "^3.9.0",
+    "sharp": "^0.35.3",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.66.0",
+    "vitest": "^4.1.0",
+    "vue-tsc": "^3.3.9"
+  }
+}
