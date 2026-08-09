@@ -9,3 +9,5 @@ Run `npm ci && npm run dev`. The planned Pages URL is `https://swiftserveresto.g
 The supplied canonical logo is preserved unchanged at `public/brand/swiftserve-logo-original.jpg`; checksum-locked derivatives are reproduced with `npm run brand:generate` and checked with `npm run brand:validate`. The prototype never redraws or reinterprets the mark.
 
 Figma is not required: this code-based prototype is the canonical visual source. Prototype authorization controls are simulations only, fixtures contain no production data, and Phase 8B/8C must reference the final committed Phase 8A version.
+
+GitHub Pages has no arbitrary history-mode SPA rewrites. `src/route-manifest.ts` is the canonical public route list; every production build generates and validates a real `dist/<route>/index.html` for each known clean URL.

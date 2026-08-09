@@ -4,6 +4,7 @@ import { createMemoryHistory, createRouter } from 'vue-router'
 import { describe, it, expect } from 'vitest'
 import App from './App.vue'
 import { groups } from './screens'
+import { routeManifest } from './route-manifest'
 import DesignSystem from './views/DesignSystem.vue'
 describe('prototype', () => {
   it('renders the design system and prototype warning', async () => {
@@ -17,6 +18,19 @@ describe('prototype', () => {
     expect(screen.getByText('SwiftServe design system')).toBeTruthy()
     expect(screen.getByText(/Simulation only/)).toBeTruthy()
   })
+})
+
+it('keeps the public route manifest unique and safe', () => {
+  const paths = routeManifest.map((route) => route.path)
+  expect(paths).toHaveLength(17)
+  expect(new Set(paths).size).toBe(paths.length)
+  for (const path of paths) {
+    expect(path.startsWith('/')).toBe(true)
+    expect(path).not.toMatch(/\.\.|[?#]|\\/)
+  }
+  for (const route of routeManifest) {
+    if (route.kind === 'gallery') expect(groups[route.group]).toBeDefined()
+  }
 })
 
 it('defines unique, actionable and complete content for every mapped view', () => {

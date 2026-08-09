@@ -60,3 +60,21 @@ for (const route of ['web/orders', 'staff/service', 'staff/kitchen'])
       path: testInfo.outputPath(`preview-${route.replace('/', '-')}.png`),
     })
   })
+
+for (const [route, heading] of [
+  ['design-system', 'SwiftServe design system'],
+  ['web/orders', 'web orders'],
+  ['staff/service', 'staff service'],
+])
+  test(`${route} survives fresh direct navigation and refresh`, async ({ page }) => {
+    const failures: string[] = []
+    page.on('pageerror', (error) => failures.push(error.message))
+    page.on('response', (response) => {
+      if (response.status() === 404) failures.push(response.url())
+    })
+    await page.goto(route)
+    await expect(page.getByRole('heading', { name: heading, exact: false }).first()).toBeVisible()
+    await page.reload()
+    await expect(page.getByRole('heading', { name: heading, exact: false }).first()).toBeVisible()
+    expect(failures).toEqual([])
+  })
